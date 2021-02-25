@@ -51,10 +51,11 @@ namespace Gestionele
         public static string filename_menu4 = @"File_Candidati.txt"; //inizializzo la variabile filename_menu1 e le do valore del percorso al file File_Candidati.txt
         public static string filename_menu5 = @"File_dipendenti.txt"; //inizializzo la variabile filename_menu1 e le do valore del percorso al file File_dipendenti.txt
         public static string filename_menu6 = @"File_dipendenti_menu6.txt"; //inizializzo la variabile filename_menu1 e le do valore del percorso al file File_dipendenti_menu6.txt
+        public static StreamWriter Uscita = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + filename_menu2, true); ////apertura del file situato nella variabile fileneme_menù2 e le do il nome Uscita
 
         static void Dipendenti()
         {
-            StreamReader sw = new StreamReader(Elenco); //apertura del elenco e le do il nome sw
+            StreamReader sw = new StreamReader(Elenco); //apertura del file situato nella elenco e do il nome sw
 
             var data = File.ReadLines(Elenco); //memorizzo in data tutti le righe
 

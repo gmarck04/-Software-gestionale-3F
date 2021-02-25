@@ -694,11 +694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gmarc\\source\\repos\\Gestionale\\Gestionale\\Gestionale\\Gestionale.csproj",
+      "projectUniqueName": "C:\\Users\\gmarc\\OneDrive\\Documenti\\GitHub\\-Software-gestionale-3F\\Codice\\Gestionale\\Gestionale\\Gestionale.csproj",
       "projectName": "Gestionale",
-      "projectPath": "C:\\Users\\gmarc\\source\\repos\\Gestionale\\Gestionale\\Gestionale\\Gestionale.csproj",
+      "projectPath": "C:\\Users\\gmarc\\OneDrive\\Documenti\\GitHub\\-Software-gestionale-3F\\Codice\\Gestionale\\Gestionale\\Gestionale.csproj",
       "packagesPath": "C:\\Users\\gmarc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gmarc\\source\\repos\\Gestionale\\Gestionale\\Gestionale\\obj\\",
+      "outputPath": "C:\\Users\\gmarc\\OneDrive\\Documenti\\GitHub\\-Software-gestionale-3F\\Codice\\Gestionale\\Gestionale\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
