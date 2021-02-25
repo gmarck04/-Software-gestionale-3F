@@ -1,0 +1,10 @@
+Mario Rossi,400
+Luigi Verdi,125
+Paolo Bianchi,340
+Luca Morabito,100
+Callisto Calabresi,200
+Giovanni Melon,256
+Silvia Padoan,339
+Alice Toffanello,111
+Greta Bedendo,193
+Giacomo Tognin,226

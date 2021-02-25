@@ -1,0 +1,5 @@
+Mauro Landini,Rifiutato,Curriculum eliminato
+Alessandro Del Piero,Assunto,""
+Matteo Magnarello,Rifiutato,Curriculum conservato
+Simone Giuriato,Assunto,Curriculum eliminato
+Alberto Pavarin,Rifiutato,Curriculum conservato

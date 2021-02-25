@@ -1,0 +1,11 @@
+C:\Users\gmarc\source\repos\Gestionale\Gestionale\Gestionale\bin\Debug\netcoreapp2.1\Gestionale.deps.json
+C:\Users\gmarc\source\repos\Gestionale\Gestionale\Gestionale\bin\Debug\netcoreapp2.1\Gestionale.runtimeconfig.json
+C:\Users\gmarc\source\repos\Gestionale\Gestionale\Gestionale\bin\Debug\netcoreapp2.1\Gestionale.runtimeconfig.dev.json
+C:\Users\gmarc\source\repos\Gestionale\Gestionale\Gestionale\bin\Debug\netcoreapp2.1\Gestionale.dll
+C:\Users\gmarc\source\repos\Gestionale\Gestionale\Gestionale\bin\Debug\netcoreapp2.1\Gestionale.pdb
+C:\Users\gmarc\source\repos\Gestionale\Gestionale\Gestionale\obj\Debug\netcoreapp2.1\Gestionale.csprojAssemblyReference.cache
+C:\Users\gmarc\source\repos\Gestionale\Gestionale\Gestionale\obj\Debug\netcoreapp2.1\Gestionale.csproj.CoreCompileInputs.cache
+C:\Users\gmarc\source\repos\Gestionale\Gestionale\Gestionale\obj\Debug\netcoreapp2.1\Gestionale.AssemblyInfoInputs.cache
+C:\Users\gmarc\source\repos\Gestionale\Gestionale\Gestionale\obj\Debug\netcoreapp2.1\Gestionale.AssemblyInfo.cs
+C:\Users\gmarc\source\repos\Gestionale\Gestionale\Gestionale\obj\Debug\netcoreapp2.1\Gestionale.dll
+C:\Users\gmarc\source\repos\Gestionale\Gestionale\Gestionale\obj\Debug\netcoreapp2.1\Gestionale.pdb

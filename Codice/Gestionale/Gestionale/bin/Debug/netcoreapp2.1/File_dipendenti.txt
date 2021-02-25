@@ -1,0 +1,10 @@
+Mario Rossi,Dipendente,""
+Luigi Verdi,Dipendente,""
+Paolo Bianchi,Dipendente,""
+Luca Morabito,Dipendente,""
+Callisto Calabresi,Licenziato,0987654321
+Giovanni Melon,Dipendente,""
+Silvia Padoan,Licenziato,5666565678
+Alice Toffanello,Licenziato,1029384756
+Greta Bedendo,Dipendente,""
+Giacomo Tognin,Licenziato,1234567890
