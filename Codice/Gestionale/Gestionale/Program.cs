@@ -144,8 +144,8 @@ namespace Gestionele
 
         static void Menu6()
         {
-            Console.WriteLine("6");
-            {
+            
+            
                 string[,] dati;
 
                 StreamReader file;
@@ -331,7 +331,7 @@ namespace Gestionele
                         }
                     }
                 }
-            }
+            
         }
     }
 }
