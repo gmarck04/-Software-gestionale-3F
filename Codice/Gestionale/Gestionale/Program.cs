@@ -153,9 +153,9 @@ namespace Gestionele
             int righe;                                                      // conta quante righe ci sono nel file
             void Lettura()
             {
-                righe = File.ReadLines(@"C: \Users\Utente\Desktop\File dipendenti.txt").Count();    //Conta quante righe ci sono nel file esterno
+                righe = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + filename_menu6).Count();    //Conta quante righe ci sono nel file esterno
                 dati = new string[righe, 2];                                                        // Crea una matrice in base a quante righe ci sono
-                using (file = new StreamReader(@"C: \Users\Utente\Desktop\File dipendenti.txt"))    //apre il file esterno
+                using (file = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + filename_menu6))    //apre il file esterno
                 {
                     for (int i = 0; i < righe; i++)                                                 //Questo ciclo for inserisci i dati del file separati dal
                                                                                                     // carattere ',' in una matricie
@@ -189,7 +189,7 @@ namespace Gestionele
                 {
                     testo = testo + dati[i, 0] + "," + dati[i, 1] + "\n";                                        //sovrascrive il file esterno utilizzando la matrice
                 }                                                                                                  // modificata
-                File.WriteAllText(@"C: \Users\Utente\Desktop\File dipendenti.txt", testo);
+                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + filename_menu6, testo);
             }
 
             y = 0;
@@ -335,9 +335,10 @@ namespace Gestionele
     }
 }
 
-        
-            
-            
+
+
+
+
 
 
 
