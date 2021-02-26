@@ -143,9 +143,201 @@ namespace Gestionele
         }
 
         static void Menu6()
+
         {
-            Console.WriteLine("6");
+            string[,] dati;
+
+            StreamReader file;
+
+            string[] tmp;                                                   //array temporaneo con cui suddivido i dati del file nelle varie colonne
+            int righe;                                                      // conta quante righe ci sono nel file
+            void Lettura()
+            {
+                righe = File.ReadLines(@"C: \Users\Utente\Desktop\File dipendenti.txt").Count();    //Conta quante righe ci sono nel file esterno
+                dati = new string[righe, 2];                                                        // Crea una matrice in base a quante righe ci sono
+                using (file = new StreamReader(@"C: \Users\Utente\Desktop\File dipendenti.txt"))    //apre il file esterno
+                {
+                    for (int i = 0; i < righe; i++)                                                 //Questo ciclo for inserisci i dati del file separati dal
+                                                                                                    // carattere ',' in una matricie
+                    {
+                        tmp = file.ReadLine().Split(',');
+                        dati[i, 0] = tmp[0];
+                        dati[i, 1] = tmp[1];
+                    }
+
+                }
+            }
+            bool Ricerca(string dipendente)
+            {
+                for (int i = 0; i < righe; i++)                                                 //Ricerca il Nome dell dipendente inserito
+                {
+                    if (dati[i, 0] == dipendente)
+                    {
+                        tempo = Convert.ToInt32(dati[i, 1]);
+                        k = i;                                                                  // segna in quele riga della matrice è situato il dipendente
+                        return true;
+                    }
+                }
+                Console.WriteLine("errore nome non trovato reinserirlo correttamente");
+                return false;
+            }
+
+            void Scrittura()
+            {
+                string testo = "";
+                for (int i = 0; i < righe; i++)
+                {
+                    testo = testo + dati[i, 0] + "," + dati[i, 1] + "\n";                                        //sovrascrive il file esterno utilizzando la matrice
+                }                                                                                                  // modificata
+                File.WriteAllText(@"C: \Users\Utente\Desktop\File dipendenti.txt", testo);
+            }
+
+            y = 0;
+            while (y == 0)                                                                                              //Ciclo che mi permette di reinserire la risposta se inserita sbagliata
+            {
+                y = 1;
+                Lettura();
+                do
+                {
+                    Console.WriteLine("Metti nome e cognome del dipendente al quale attribuire le ferie");
+                    string nome = Console.ReadLine();
+                    Console.Clear();
+                    if (Ricerca(nome) == true)
+                    {
+                        break;
+
+                    }
+                } while (true);
+
+                if (tempo < 400)                                                // se le ore riportate sono inferiori al massimo consentito in azienda
+                {                                                                  // allora si possono aggiungere altre ore      
+                    Console.Clear();
+                    Console.WriteLine("il dipendente vuole avere altre ore di ferie?");
+                    l = 0;
+                    while (l == 0)
+                    {
+                        Console.WriteLine("digitare 'si' se si vuole inserire altre ore di ferie, premere 'no' se non si vuole.");     // se il dipendente vuole altre ferie
+                        l = 1;
+                        risposta = Convert.ToString(Console.ReadLine());                                                        // si digita si
+                        if (risposta == "si")
+                        {
+                            Console.Clear();
+                            x = 0;
+                            while (x == 0)
+                            {
+                                x = 1;                                              //Questo ciclo while servirà per rimettere le ore in caso di errore
+                                Console.WriteLine("Inserisci le ore che il dipendente vuole avere");
+                                int ore = Convert.ToInt32(Console.ReadLine());
+                                tempo = tempo + ore;
+                                if (tempo > 400)              // se le ore nuove, sommate alle ore precedenti, superano le ore totali si mostrerà un messaggio di errore
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("le ore inserite superano le ore totali stabilite. Prendere un numero di ore minori");
+                                    tempo = tempo - ore;
+                                    x = 0;
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Le ore di ferie sono state aggiornate");
+                                    dati[k, 1] = Convert.ToString(tempo);           // sovrascrive file esterno
+                                    Scrittura();
+                                    z = 0;
+                                    while (z == 0)                      //Ciclo che mi permette di reinserire la risposta se inserita sbagliata
+                                    {
+                                        z = 1;
+                                        Console.WriteLine("Vuoi passare ad un altro Dipendente? \nDigitare 'si' se si vuole passare ad un altro dipendente, premere 'no' se non si vuole.");
+                                        decisione = Convert.ToString(Console.ReadLine());
+                                        if (decisione == "si")
+                                        {                                                                                                              //funzione che mi consente l'nserimento di altri dipendenti
+                                            y = 0;                                                                                                    // Grazie alla variabile decisione.                              
+                                        }
+                                        else if (decisione == "no")
+                                        {
+                                            Console.Clear();
+                                            Console.WriteLine("Il programma si terminerà");
+                                        }
+                                        else
+                                        {
+                                            Console.Clear();
+                                            Console.WriteLine("Risposta inserita non accettata \nRiscrivila correttamente");
+                                            z = 0;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (risposta == "no")
+                        {
+                            Console.Clear();                                                                        // Se non si vuole aggiungere ore di ferie al dipendente il programma chiede il nome di un'altro dipendente
+                            Console.WriteLine("Le ore di ferie non verranno aggiornate");
+                            z = 0;
+                            while (z == 0)                                                               //Ciclo che mi permette di reinserire la risposta se inserita sbagliata
+                            {
+                                z = 1;
+                                Console.WriteLine("Vuoi passare ad un altro Dipendente? \nDigitare 'si' se si vuole passare ad un altro dipendente, premere 'no' se non si vuole.");
+                                decisione = Convert.ToString(Console.ReadLine());
+                                if (decisione == "si")                                                                                   //funzione che mi consente l'nserimento di altri dipendenti
+                                {                                                                                                        // Grazie alla variabile decisione.     
+                                    y = 0;
+                                }
+                                else if (decisione == "no")
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Il programma si terminerà");                     //Funzione che fa terminare il programma
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Risposta inserita non accettata \nRiscrivila correttamente");
+                                    z = 0;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Risposta inserita non accettata \nRiscrivila correttamente");
+                            l = 0;
+                        }
+                    }
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("il dipendente ha esaurito le ore di ferie");
+                    z = 0;
+                    while (z == 0)                                           //Ciclo che mi permette di reinserire la risposta se inserita sbagliata
+                    {
+                        z = 1;
+                        Console.WriteLine("Vuoi passare ad un altro Dipendente? \nDigitare 'si' se si vuole passare ad un altro dipendente, premere 'no' se non si vuole.");
+                        decisione = Convert.ToString(Console.ReadLine());
+                        if (decisione == "si")
+                        {
+                            y = 0;                                                                           //funzione che mi consente l'nserimento di altri dipendenti
+                        }                                                                                     // Grazie alla variabile decisione.      
+                        else if (decisione == "no")
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Il programma si terminerà");                                             //Funzione che fa terminare il programma
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Risposta inserita non accettata \nRiscrivila correttamente");
+                            z = 0;
+                        }
+                    }
+                }
+                Console.ReadKey();
+            }
         }
     }
 }
+
+        
+            
+            
+
+
 
