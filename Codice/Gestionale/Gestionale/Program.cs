@@ -280,12 +280,395 @@ namespace Gestionale
 
         static void Menu4()
         {
-            Console.WriteLine("4");
+            string[,] dati;
+            StreamReader file;
+            string[] tmp;                                                   //array temporaneo con cui suddivido i dati del file nelle varie colonne
+            int righe;                                                      //conta quante righe ci sono nel file
+            void Lettura()
+            {
+                righe = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + filename_menu4).Count();    //Conta quante righe ci sono nel file esterno
+                dati = new string[righe, 3];                                                                //Crea una matrice in base a quante righe ci sono
+                using (file = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + filename_menu4))    //apre il file esterno
+                {
+                    for (int i = 0; i < righe; i++)                                                         //Questo ciclo for inserisci i dati del file separati dalla virgola                                                                             // carattere ',' in una matricie
+                    {
+                        tmp = file.ReadLine().Split(',');
+                        dati[i, 0] = tmp[0];
+                        dati[i, 1] = tmp[1];
+                        dati[i, 2] = tmp[2];
+                    }
+                }
+            }
+
+            bool Ricerca(string dipendente)
+            {
+                for (int i = 0; i < righe; i++)                                                 //Ricerca il Nome dell dipendente inserito
+                {
+                    if (dati[i, 0] == dipendente)
+                    {
+                        stato = dati[i, 1];
+                        k = i;                                                                  //segna in quele riga della matrice è situato il dipendente
+                        return true;
+                    }
+                }
+                for (int i = 0; i < righe; i++)
+                {
+                    if (dati[i, 0] == dipendente)
+                    {
+                        curriculum = dati[i, 2];
+                        k = i;
+                        return true;
+                    }
+                }
+                Console.WriteLine("Errore, nome non trovato, reinseriscilo correttamente.");
+                return false;
+            }
+
+            void Scrittura()
+            {
+                string testo = "";
+                for (int i = 0; i < righe; i++)
+                {
+                    testo = testo + dati[i, 0] + "," + dati[i, 1] + "," + dati[i, 2] + "\n";                   //sovrascrive il file esterno utilizzando la matrice modificata
+                }
+
+                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + filename_menu4, testo);
+            }
+
+            int z = 0;
+            while (z == 0)
+            {
+                Lettura();
+                do
+                {
+                    Console.WriteLine("Inserisci nome e cognome del candidato.");
+                    string nome = Console.ReadLine();
+                    Console.Clear();
+                    if (Ricerca(nome) == true)
+                    {
+                        break;
+
+                    }
+                } while (true);
+
+
+                z = 1;
+                int x = 0;
+                while (x == 0)
+                {
+                    x = 1;
+                    Console.WriteLine("Digita 'assumere' se vuoi assumere il candidato, digita 'rifiutare' se vuoi rifiutarlo.");
+                    string decisione;
+                    decisione = Convert.ToString(Console.ReadLine());
+                    if (decisione == "assumere")                                                                                                  //l'utente decide di assumere il candidato
+                    {
+                        Console.WriteLine("Il candidato verrà assunto nell'azienda.");
+                        dati[k, 1] = "Assunto";										//viene scritto nel file esterno
+                        Scrittura();
+                        int g = 0;
+                        while (g == 0)											//ciclo per controllare altri candidati
+                        {
+                            g = 1;
+                            Console.WriteLine("Vuoi controllare un altro candidato? \nDigita 'si' o 'no'.");
+                            conferma = Console.ReadLine();
+                            if (conferma == "si")
+                            {
+                                z = 0;
+
+                            }
+                            else if (conferma == "no")
+                            {
+                                Console.WriteLine("Il programma è terminato.");
+                                z = 1;
+                            }
+                            else
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Riscrivi la tua risposta.");
+                                z = 0;
+                                g = 0;
+                            }
+                        }
+
+                    }
+                    else if (decisione == "rifiutare")                                                                                          //l'utente decide di rifiutare il candidato
+                    {
+                        int y = 0;
+                        while (y == 0)                                                                            //secondo while che ripete la procedura se l'utente sbaglia a scrivere
+                        {
+                            y = 1;
+                            Console.WriteLine("Il candidato verrà rifiutato.");					//decido di rifiutare il candidato
+                            dati[k, 1] = "Rifiutato";
+                            Console.WriteLine("Digita 'conservare' se vuoi conservare il curriculum del candidato, digita 'eliminare' se lo vuoi eliminare.");
+                            string decisione2;
+                            decisione2 = Convert.ToString(Console.ReadLine());
+                            if (decisione2 == "conservare")
+                            {
+                                Console.WriteLine("Il curriculum del candidato verrà conservato. Verrà salvato nella prossima versione.");       //decido di conservare il curriculum
+                                dati[k, 2] = "Curriculum conservato";
+                                Scrittura();
+                                int g = 0;
+                                while (g == 0)											//ciclo per controllare altri candidati
+                                {
+                                    g = 1;
+                                    Console.WriteLine("Vuoi controllare un altro candidato? \nDigita 'si' o 'no'.");
+                                    conferma = Console.ReadLine();
+                                    if (conferma == "si")
+                                    {
+                                        z = 0;
+
+                                    }
+                                    else if (conferma == "no")
+                                    {
+                                        Console.WriteLine("Il programma è terminato.");
+                                        z = 1;
+                                    }
+                                    else
+                                    {
+                                        Console.Clear();
+                                        Console.WriteLine("Riscrivi la tua risposta.");
+                                        z = 0;
+                                        g = 0;
+                                    }
+                                }
+
+                            }
+                            else if (decisione2 == "eliminare")
+                            {
+                                Console.WriteLine("Il curriculum del candidato verrà eliminato. Verrà salvato nella prossima versione.");        //decido di conservare il curriculum
+                                dati[k, 2] = "Curriculum eliminato";
+                                Scrittura();
+
+                                int g = 0;
+                                while (g == 0)											//ciclo per controllare altri candidati
+                                {
+                                    g = 1;
+                                    Console.WriteLine("Vuoi controllare un altro candidato? \nDigita 'si' o 'no'.");
+                                    conferma = Console.ReadLine();
+                                    if (conferma == "si")
+                                    {
+                                        z = 0;
+
+                                    }
+                                    else if (conferma == "no")
+                                    {
+                                        Console.WriteLine("Il programma è terminato.");
+                                        z = 1;
+                                    }
+                                    else
+                                    {
+                                        Console.Clear();
+                                        Console.WriteLine("Riscrivi la tua risposta.");
+                                        z = 0;
+                                        g = 0;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Riscrivi la tua decisione.");
+                                y = 0;                                                   //mi fa ripetere il ciclo
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Riscrivi la tua decisione.");
+                        x = 0;                                                   //mi fa ripetere il ciclo
+                    }
+                }
+            }
         }
+    
 
         static void Menu5()
         {
-            Console.WriteLine("5");
+            string[,] dati;
+            StreamReader file;
+            string[] tmp;                                                   //array temporaneo con cui suddivido i dati del file nelle varie colonne
+            int righe;                                                      //conta quante righe ci sono nel file
+            void Lettura()
+            {
+                righe = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + filename_menu5).Count();    //Conta quante righe ci sono nel file esterno
+                dati = new string[righe, 3];                                                                //Crea una matrice in base a quante righe ci sono
+                using (file = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + filename_menu5))    //apre il file esterno
+                {
+                    for (int i = 0; i < righe; i++)                                                         //Questo ciclo for inserisci i dati del file separati dalla virgola                                                                             // carattere ',' in una matricie
+                    {
+                        tmp = file.ReadLine().Split(',');
+                        dati[i, 0] = tmp[0];
+                        dati[i, 1] = tmp[1];
+                        dati[i, 2] = tmp[2];
+                    }
+                }
+            }
+
+            bool Ricerca(string dipendente)
+            {
+                for (int i = 0; i < righe; i++)                                                 //Ricerca il Nome dell dipendente inserito
+                {
+                    if (dati[i, 0] == dipendente)
+                    {
+                        stato = dati[i, 1];
+                        k = i;                                                                  //segna in quele riga della matrice è situato il dipendente
+                        return true;
+                    }
+                }
+                for (int i = 0; i < righe; i++)
+                {
+                    if (dati[i, 0] == dipendente)
+                    {
+                        contatto = dati[i, 2];
+                        k = i;
+                        return true;
+                    }
+                }
+                Console.WriteLine("Errore, nome non trovato, reinseriscilo correttamente.");
+                return false;
+            }
+
+            void Scrittura()
+            {
+                string testo = "";
+                for (int i = 0; i < righe; i++)
+                {
+                    testo = testo + dati[i, 0] + "," + dati[i, 1] + "," + dati[i, 2] + "\n";                   //sovrascrive il file esterno utilizzando la matrice modificata
+                }
+                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + filename_menu5, testo);
+            }
+
+
+
+            int z = 0;
+            while (z == 0)
+            {
+
+                Lettura();
+                do
+                {
+                    Console.WriteLine("Inserisci nome e cognome del dipendente per decidere il suo futuro nell'azienda.");
+                    string nome = Console.ReadLine();
+                    Console.Clear();
+                    if (Ricerca(nome) == true)
+                    {
+                        break;
+
+                    }
+                } while (true);
+
+                z = 1;
+                Console.WriteLine("Il dipendente in questione si trova in questo stato:");
+                Console.WriteLine(dati[k, 1]);
+                string stringa = dati[k, 1];
+                if (stringa == "Dipendente")                                                 //il dipendente lavora ancora nell'azienda
+                {
+                    int y = 0;
+                    while (y == 0)                                                           //while che mi fa ripetere se l'utente sbaglia a scrivere
+                    {
+                        y = 1;
+                        Console.WriteLine("Digita 'conservare' se vuoi conservare il dipendente, digita 'licenziare' se lo vuoi licenziare.");
+                        string dec;
+                        dec = Convert.ToString(Console.ReadLine());
+                        if (dec == "conservare")						//decido di conservare il dipendente
+                        {
+                            Console.WriteLine("Il dipendente verrà conservato nell'azienda.");
+                            int g = 0;
+                            while (g == 0)									//ciclo per controllare altri candidati
+                            {
+                                g = 1;
+                                Console.WriteLine("Vuoi controllare un altro candidato? \nDigita 'si' o 'no'.");
+                                conferma = Console.ReadLine();
+                                if (conferma == "si")
+                                {
+                                    z = 0;
+
+                                }
+                                else if (conferma == "no")
+                                {
+                                    Console.WriteLine("Il programma è terminato.");
+                                    z = 1;
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Riscrivi la tua risposta.");
+                                    z = 0;
+                                    g = 0;
+                                }
+                            }
+                        }
+                        else if (dec == "licenziare")							//decido di licenziare il dipendente
+                        {
+                            Console.WriteLine("Il dipendente verrà licenziato dall'azienda.");
+                            dati[k, 1] = "Licenziato";							//verrà scritto nel file esterno
+                            Console.WriteLine("Inserisci il suo numero telefonico.");
+                            string numeroTelefonico = Console.ReadLine();
+                            dati[k, 2] = numeroTelefonico;
+                            Scrittura();
+                            int g = 0;
+                            while (g == 0)									//ciclo per controllare altri candidati
+                            {
+                                g = 1;
+                                Console.WriteLine("Vuoi controllare un altro candidato? \nDigita 'si' o 'no'.");
+                                conferma = Console.ReadLine();
+                                if (conferma == "si")
+                                {
+                                    z = 0;
+
+                                }
+                                else if (conferma == "no")
+                                {
+                                    Console.WriteLine("Il programma è terminato.");
+                                    z = 1;
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Riscrivi la tua risposta.");
+                                    z = 0;
+                                    g = 0;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Riscrivi la tua decisione.");
+                            y = 0;                                                               //contatore che mi fa ripetere la decisione
+                        }
+                    }
+                }
+                else if (stringa == "Licenziato")
+                {
+                    Console.WriteLine("Questo è il suo contatto telefonico:");
+                    Console.WriteLine(dati[k, 2]);							//stampa il contatto telefonico dal file esterno
+                    int g = 0;
+                    while (g == 0)									//ciclo per con trollare altri candidati
+                    {
+                        g = 1;
+                        Console.WriteLine("Vuoi controllare un altro candidato? \nDigita 'si' o 'no'.");
+                        conferma = Console.ReadLine();
+                        if (conferma == "si")
+                        {
+                            z = 0;
+
+                        }
+                        else if (conferma == "no")
+                        {
+                            Console.WriteLine("Il programma è terminato.");
+                            z = 1;
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Riscrivi la tua risposta.");
+                            z = 0;
+                            g = 0;
+                        }
+                    }
+                }
+            }
         }
 
         static void Menu6()
