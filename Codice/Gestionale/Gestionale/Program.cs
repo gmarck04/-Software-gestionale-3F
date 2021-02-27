@@ -191,7 +191,145 @@ namespace Gestionale
 
         static void Menu2()
         {
-            Console.WriteLine("2");
+            DateTime thisHour = DateTime.Now; //funzione datetime
+
+            Uscita.WriteLine(thisHour); //scrivo nel file esterno il contenuto della variabile thisHuor
+            Uscita.WriteLine(" "); 
+            Console.WriteLine("Inserisci il nome e cognome del dipendente, ma separati da uno spazio e con le iniziali maiuscole"); //scrivo a schermo
+            dipendente = Console.ReadLine();//var dico che vale ciò chge è stato indicato dall'utente
+
+            do
+            {
+                int contatore = 0; //inizialiazzo la variabile contatore e le do valore 0
+                int pos = Array.IndexOf(Nome_Dipendenti, dipendente); 
+                string[] results; //creo un array per i risultati
+                if (pos > -1) /*inizializzo la variabile "pos" e le viene dato un valore che può essere -1 (se ciò che è contenuto nell'array Nome_Dipendenti[] 
+                                ha lo stesso valore delle stringa dipendente), oppure 0 se non ha lo stesso contenuto*/
+                {
+                    for (int i = 0; i < Nome_Dipendenti.Length; i++) // l'indice 'i' sia minore della lunghezza di Nome_Dipendenti[]
+                    {
+                        if (!Nome_Dipendenti[i].Equals(dipendente)) //Nome_Dipendenti[i] è uguale alla variabile dipendente?
+                        {
+                            contatore++; //incremento in contatore
+                        }
+                    }
+                    results = elenco_dipendenti[contatore].Split(",", StringSplitOptions.None); //pongo "results" uguale allo Split della riga dell'array elenco_dipendenti[]
+                    Console.WriteLine("Il dipendente è {0}", results[2]); //mostro a video lo stato del dipendente
+
+                    if (results[2] == "presente")
+                    {
+                        string Risposta; //inizializzo la stringa Risposta
+                        int k = 0; //inizialiazzo la variabile k e le do valore 0
+                        while (k == 0)
+                        {
+                            k = 1;
+
+                            Console.WriteLine("Il dipendente deve uscire? si o no");  //scrivo a schermo
+                            Risposta = Console.ReadLine(); //inserisco ciò che l'utente ha scritto a schermo nella stinga risposta
+                            if (Risposta == "si")
+                            {
+                                Console.WriteLine("A che ora deve uscire il dipendente?");  //scrivo a schermo
+                                string Orario = Console.ReadLine(); //inizializzo la stringa Orario e vi inserisco ciò che l'utente ha scritto a schermo
+                                Uscita.Write(dipendente); //scrivo nel file il valore della stringa dipendente
+                                Uscita.Write(" ");
+                                Uscita.WriteLine(Orario); //scrivo nel file il valore della stringa Orario
+                            }
+                            else
+                            {
+                                if (Risposta == "no")
+                                {
+                                    string risposta1; //inizializzo la stringa risposta1
+                                    int g = 0; //inizializzo la variabile g e le do valore 0
+                                    while (g == 0)
+                                    {
+                                        g = 1;
+                                        Console.WriteLine("Vuoi essere riportato al menu principale? si o no");  //scrivo a schermo
+                                        risposta1 = Console.ReadLine(); //inserisco ciò che l'utente ha scritto a schermo nella stinga risposta1
+                                        if (risposta1 == "si")
+                                        {
+                                            do
+                                            {
+                                                Console.Clear(); //pulisco la console
+
+                                                Benvenuto(); //richiamo la funzione Benvenuto
+                                                Console.WriteLine();
+                                                Gestione(); //richiamo la funzione Gestione
+                                                menu = Console.ReadLine(); //inserisco ciò che è stato digitato dall'utente in menu
+
+                                                if (menu == "1") //se il valore di menu è uguale a 1 allora fai questo
+                                                    Menu1(); //richiamo la funzione Menu1
+                                                else if (menu == "2") //se il valore di menu è uguale a 2 allora fai questo
+                                                    Menu2(); //richiamo la funzione Menu2
+                                                else if (menu == "3") //se il valore di menu è uguale a 3 allora fai questo
+                                                    Menu3(); //richiamo la funzione Menu3
+                                                else if (menu == "4") //se il valore di menu è uguale a 4 allora fai questo
+                                                    Menu4(); //richiamo la funzione Menu4
+                                                else if (menu == "5") //se il valore di menu è uguale a 5 allora fai questo
+                                                    Menu5(); //richiamo la funzione Menu5
+                                                else if (menu == "6") //se il valore di menu è uguale a 6 allora fai questo
+                                                    Menu6(); //richiamo la funzione Menu6
+                                                else
+                                                    Console.WriteLine("Menù non trovato"); //scrivo a schermo la frase Menù non trovato
+
+                                                Uscita.Close(); //chiusura del file
+                                            } while (menu != "1" || menu != "2" || menu != "3" || menu != "4" || menu != "5" || menu != "6"); //controllo del contenuto menu
+                                        }
+                                        if (risposta1 == "no")
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("La scelta non e' valida");  //scrivo a schermo
+                                            g = 0;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("La scelta non e' valida");  //scrivo a schermo
+                                    k = 0;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        string risposta2; //inizializzo la stringa risposta2
+                        int g = 0; //inizializzo la variabile g e le do valore 0
+                        while (g == 0)
+                        {
+                            g = 1;
+                            Console.WriteLine("Vuoi essere portato al menu 3? si o no");  //scrivo a schermo
+                            risposta2 = Console.ReadLine(); //inserisco ciò che l'utente ha scritto a schermo nella stinga risposta2
+                            if (risposta2 == "si")
+                            {
+                                Menu3(); //funzione Menu3
+                            }
+                            if (risposta2 == "no")
+                            {
+
+                            }
+                            else
+                            {
+                                Console.WriteLine("La scelta non e' valida");  //scrivo a schermo
+                                g = 0;
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Il dipendente non è registrato"); //scrivo a schermo
+                }
+                Console.Write("Se vuoi terminare l'inserimento dei dati scrivi '*', oppure se vuoi continuare inserisci un'altro dipendente: "); /*chiedo all'utente la frase "Se vuoi terminare l'inserimento dei dati scrivi '*',
+                                                                                                                                                 oppure se vuoi continuare inserisci il numero successivo: "*/
+                dipendente = Console.ReadLine(); //inserisco ciò che l'utente ha scritto a schermo nella stinga dipendente
+            } while (dipendente != "*"); //controllo del contenuto della stringa dipendente attraverso un ciclo while
+            Uscita.WriteLine("_______________________________________________"); //scrivo nel file
+            Uscita.Close(); //chiudo il file
+            Console.WriteLine("Premi un tasto per uscire...");  //scrivo a schermo
         }
         static void Menu3()
         {
