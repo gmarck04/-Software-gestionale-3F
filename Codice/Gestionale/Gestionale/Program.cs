@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using System.IO;
 
-namespace Gestionele
+namespace Gestionale
 {
     class Program
     {
@@ -120,8 +120,74 @@ namespace Gestionele
 
         static void Menu1()
         {
-            Console.WriteLine("1");
+           //dichiaro le variabili
+           int k = 0; //variabile per il riavvio del programma
+           string nome_dipendente = ""; //nome e cognome del dipendente
+           string scelta = ""; //menù di scelta
+
+           Console.WriteLine(DateTime.Now); //inserisco la data e l'ora
+
+           while (k == 0)
+           {
+             //inserimento nome dipendente
+             Console.WriteLine("Inserisci il nominativo del dipendente");
+             nome_dipendente = Convert.ToString(Console.ReadLine()); //richiede il nominativo del dipendente
+
+             //inserisco l'ora di ingresso nel file di salvataggio esterno        
+             if (nome_dipendente != "") //se la stringa NON è vuota inserisco l'orario nel file "salvataggio_ingressi"
+             {
+                DateTime thisHour = DateTime.Now; //inserisco la funzione DateTime.Now
+
+                Console.WriteLine("Inserisci l'orario di entrata");
+                string orario = Console.ReadLine(); //inserisco l'orario di entrata
+                                                            //NB: inserire il percorso del file di output del proprio computer
+
+                string ingressi = AppDomain.CurrentDomain.BaseDirectory + filename_menu1;//percorso del file in cui verranno salvati i file                    
+                StreamWriter Ingresso = new StreamWriter(ingressi, true); //false = sovrascrivi; true = non sovrascrivere
+
+                //inserimento dati
+                Ingresso.WriteLine(thisHour); //inserisco data e ora odierna
+                Ingresso.Write(nome_dipendente); //inserisco il nome del dipendente
+                Ingresso.Write(" "); //inserisco una ','
+                Ingresso.WriteLine(orario); //inserisco l'orario di entrata
+                Ingresso.WriteLine("_________________"); //questo serve per separare le varie righe e facilitare la lettura
+                Ingresso.Close(); //esco
+             }
+
+             else
+             Console.WriteLine("ERROR::inserisci un nome valido"); //se la stringa è vuota mostro ERROR e riavvia il programma
+
+             //apro il menù di scelta per riavviare il programma o tornare al main
+              Console.WriteLine("Digita: \n-'new' per inserire un altro orario; \n-'esc' per tornare al menù principale");
+             
+             //apro il menù di scelta
+             scelta = Convert.ToString(Console.ReadLine()); //chiedo di inserire la scelta
+
+             if (scelta == "new")
+             {
+               Console.WriteLine("Premi invio per confermare");
+               Console.ReadKey();
+               //riavvia il programma
+             }
+
+             else if (scelta == "esc")
+             {
+                Console.WriteLine("Premi invio per confermare");
+                Console.ReadKey();
+                k++; //break
+                //torna al Main() 
+             }
+
+             else
+             {
+               Console.WriteLine("ERROR::tasto non valido");
+               Console.WriteLine("Premi invio per riavviare il programma");
+               Console.ReadKey();
+               //se il tasto inserito non è 1 oppure 2, mostro un segnale ERROR e riavvia il programma
+             }
+           }
         }
+    
 
         static void Menu2()
         {
