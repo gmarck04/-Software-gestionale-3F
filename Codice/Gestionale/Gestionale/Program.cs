@@ -1,16 +1,16 @@
 ﻿/*Alunni: Giovanni Marchetto, Alessio Modonesi, Andrea Marchetto e Marco Malanchin
  
  * Git master: Giovanni Marchetto
- * Project manager: Giovanni Marchetto
+ * Project manager: Alessio Modonesi
  
  * Divisione del Codice:
  *                      -Menu principale: Giovanni Marchetto
- *                      -Menu 1:Alessio Modonesi
- *                      -Menu 2:Giovanni Marchetto
- *                      -Menu 3:Alessio Modonesi e Giovanni Marchetto
- *                      -Menu 4:Marco Malanchin e Andrea Marchetto
- *                      -Menu 5:Andrea Marchetto
- *                      -Menu 6:Marco Malanchin
+ *                      -Menu 1: Alessio Modonesi
+ *                      -Menu 2: Giovanni Marchetto
+ *                      -Menu 3: Alessio Modonesi e Giovanni Marchetto
+ *                      -Menu 4: Marco Malanchin e Andrea Marchetto
+ *                      -Menu 5: Andrea Marchetto
+ *                      -Menu 6: Marco Malanchin
  * 
  * Consegna: Un’azienda deve gestire gli ingressi, uscite, assunzioni, licenziamenti e presenze dei propri dipendenti, 
  *           presenze dei propri collaboratori e gestione dei giorni di ferie del personale dipendente.
@@ -195,7 +195,87 @@ namespace Gestionale
         }
         static void Menu3()
         {
-            Console.WriteLine("3");
+            string assenze = AppDomain.CurrentDomain.BaseDirectory + filename_menu3; //apro il file esterno "salvataggio_stati"
+            StreamWriter Stato = new StreamWriter(assenze, true); //false = sovrascrivi; true = non sovrascrivere
+
+            //dichiaro le variabili
+            int k = 0; //variabile per riavviare il programma
+            string scelta = ""; //menù di scelta 
+
+            Console.WriteLine(DateTime.Now); //inserisco la data e l'ora
+
+            while (k == 0)//while di "riavvio" del programma
+            {
+               Console.WriteLine("Inserisci il nome e cognome del dipendente, ma separati da uno spazio e con le iniziali maiuscole");
+               dipendente = Console.ReadLine();//var dico che vale ciò che è stato indicato dall'utente
+
+               int contatore = 0;//inizializzo il contatore a 0
+               string[] results;//creo un array per i risultati
+               int pos = Array.IndexOf(Nome_Dipendenti, dipendente);
+               /*inizializzo la variabile "pos" e le viene dato un valore che può essere -1 (se ciò che è contenuto nell'array Nome_Dipendenti[] ha lo stesso valore delle stringa dipendente), oppure 0 se non ha lo stesso contenuto*/
+
+               if (pos > -1)
+               {
+                  for (int i = 0; i < Nome_Dipendenti.Length; i++)// l'indice 'i' sia minore della lunghezza di Nome_Dipendenti[]
+                  {
+                      if (!Nome_Dipendenti[i].Equals(dipendente))
+                      {
+                        contatore++;//incremento in contatore
+                      }
+                  }
+
+                  results = elenco_dipendenti[contatore].Split(",", StringSplitOptions.None);
+                  /*pongo "results" uguale allo Split della riga dell'array elenco_dipendenti[]*/
+                  Console.WriteLine("Il dipendente è {0}", results[2]);//mostro a video lo stato del dipendente
+
+
+                  //inserisco lo stato nel file di salvataggio esterno        
+                  if (dipendente != "") //se la stringa NON è vuota inserisco l'orario nel file "salvataggio_stato"
+                  {
+                      DateTime thisHour = DateTime.Now; //inserisco la funzione DateTime.Now
+
+                      Console.WriteLine("Inserisci lo stato del dipendente");
+                      string stato = Console.ReadLine(); //inserisco lo stato
+
+                      //inserimento dati
+                      Stato.WriteLine(thisHour); //inserisco data e ora odierna
+                      Stato.Write(dipendente); //inserisco il nome del dipendente
+                      Stato.Write(" "); //inserisco uno spazio
+                      Stato.WriteLine(stato); //inserisco lo stato
+                      Stato.WriteLine("_________________"); //questo serve per separare le varie righe e facilitare la lettura
+                      Stato.Close(); //esco
+                  }
+
+                  else
+                  Console.WriteLine("ERROR::inserisci un nome valido"); //se la stringa è vuota mostro ERROR e riavvia il programma
+
+                  //apro il menù di scelta per riavviare il programma o tornare al main
+                  Console.WriteLine("Digita: \n-'new' per inserire un altro orario; \n-'esc' per tornare al menù principale"); //apro il menù di scelta
+                  scelta = Convert.ToString(Console.ReadLine()); //chiedo di inserire la scelta
+                  if (scelta == "new")
+                  {
+                     Console.WriteLine("Premi invio per confermare");
+                     Console.ReadKey();
+                     //riavvia il programma
+                  }
+
+                  else if (scelta == "esc")
+                  {
+                     Console.WriteLine("Premi invio per confermare");
+                     Console.ReadKey();
+                     k++; //break
+                     //torna al Main() 
+                  }
+
+                  else
+                  {
+                     Console.WriteLine("ERROR::tasto non valido");
+                     Console.WriteLine("Premi invio per riavviare il programma");
+                     Console.ReadKey();
+                     //se il tasto inserito non è 1 oppure 2, mostro un segnale ERROR e riavvia il programma
+                  }
+               }
+            }
         }
 
         static void Menu4()
