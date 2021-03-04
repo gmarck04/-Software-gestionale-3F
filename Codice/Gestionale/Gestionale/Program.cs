@@ -93,7 +93,9 @@ namespace Gestionale
 
 
             while (menu != "1" || menu != "2" || menu != "3" || menu != "4" || menu != "5" || menu != "6") //controllo del contenuto menu 
-            {                
+            {
+                Console.Clear(); //pulisce la console
+
                 Benvenuto(); //richiamo la funzione Benvenuto
                 Console.WriteLine();
                 Gestione(); //richiamo la funzione Gestione
