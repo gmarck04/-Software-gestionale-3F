@@ -73,7 +73,7 @@ namespace Gestionale
         static void Benvenuto()
         {
             DateTime thisHour = DateTime.Now; //funzione datetime
-            Console.WriteLine("Buon giorno, oggi è il giorno {0}", thisHour.ToString()); //Digita a schermo la frase Buon giorno, oggi è il giorno e poi digita l'orario e la data
+            Console.WriteLine("Salve, oggi è il giorno {0}", thisHour.ToString()); //Digita a schermo la frase Buon giorno, oggi è il giorno e poi digita l'orario e la data
         }
 
         static void Gestione()
