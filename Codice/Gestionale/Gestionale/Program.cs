@@ -127,7 +127,6 @@ namespace Gestionale
            string nome_dipendente = ""; //nome e cognome del dipendente
            string scelta = ""; //menù di scelta
 
-           Console.WriteLine(DateTime.Now); //inserisco la data e l'ora
 
            while (k == 0)
            {
